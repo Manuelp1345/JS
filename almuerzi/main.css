@@ -1,0 +1,72 @@
+html {
+    box-sizing: border-box;
+    font-size: 62.5%; /** 1rem = 10px **/
+}
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+.contenedor{
+    margin: 0 auto;
+    display: flex;
+    text-align: center;
+    flex-wrap: wrap;
+
+}
+.contenedor h1{
+    font-size: 5rem;
+    width: 100%;
+    font-family: 'Oswald', sans-serif;
+
+}
+.contenedor h2{
+    font-family: 'Oswald', sans-serif;
+
+    font-size: 4rem;
+    border-bottom: 5px solid cyan;
+}
+.contenedor div{
+    font-size: 3rem;
+    width: 50%;
+    margin: 0;
+    padding: 0;
+}
+.contenedor ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    margin-bottom: 5rem;
+}
+.contenedor ul li{
+    margin-top: 1.5rem;
+    transition: all ease-in-out .3s;
+}
+#meals-list :hover{
+    background-color: rgb(169, 255, 255);
+    cursor: pointer;
+}
+.meals{
+    border-right: 1px solid black;
+}
+.orders{
+    border-left: 1px solid black;
+}
+.btn{
+    margin-top: 7rem;
+    padding: 1rem;
+    width: 90%;
+    border: none;
+    border-radius: 2rem;
+    font-size: 2rem;
+    font-weight: bold;
+    background-color: aquamarine;
+    transition: all ease-in-out .3s;
+}
+.btn:hover{
+    background-color: aqua;
+}
+.selected{
+    background-color: rgb(169, 255, 255);
+    transition: all ease-in-out .3s;
+
+}
