@@ -7,7 +7,7 @@ const isAuthenticated =(req,res,next) => {
     }
     jwt.verify(token, "mi-secreto",(err,decoded)=>{
         const {_id} = decoded
-        users.findOne(_id).exec()
+        users.findOne({_id}).exec()
         .then(user => {
             req.user = user 
             next()

@@ -1,4 +1,5 @@
 let mealsState = []
+let user ={}
 let ruta = "login"//login,register,orders
 const stringToHTML = (s)=>{
     const parser = new DOMParser()
@@ -31,11 +32,12 @@ const inicializaForm = ()=>{
         const mealsIdValues = mealsID.value
         if(!mealsIdValues){
             alert("Selecciona un platillo")
+            btn.removeAttribute("disabled")
         return
         }
     const ordenes = {
         meal_id: mealsIdValues,
-        user_id: 'Manuel Puente',
+        user_id: user._id,
     }
     fetch("https://almuerzi-grsqh0moh.vercel.app/api/orders",{
         method: 'POST',
@@ -76,8 +78,21 @@ const inicializaDatos = ()=>{
 }
 const renderApp = () =>{
     const token = localStorage.getItem("token")
+    if(token){
+    user = JSON.parse(localStorage.getItem("user"))
+        return renderOrdens()
+    }
+    renderLogin()
 }
-window.onload = ()=>{
+const renderOrdens = () =>{
+    const ordersview = document.getElementById("orders-view")
+    document.getElementById("app").innerHTML = ordersview.innerHTML
+    inicializaForm()
+    inicializaDatos()
+}
+const renderLogin= ()=>{
+    const loginTemplate = document.getElementById("login")
+    document.getElementById("app").innerHTML = loginTemplate.innerHTML
     const loginForm = document.getElementById("login-form")
     loginForm.onsubmit= (e)=>{
         e.preventDefault()
@@ -94,15 +109,26 @@ window.onload = ()=>{
         .then(respuesta => {
             localStorage.setItem("token", respuesta.token)
             ruta = "orders"
+            return respuesta.token
+        })
+        .then(token=>{
+            return fetch("https://almuerzi.manuelp1345.vercel.app/api/auth/me",{
+                method: "GET",
+                headers: {
+                    'Content-Type': 'application/json',
+                    authorization: token,
+                },
+            })
+        })
+        .then(x=> x.json())
+        .then(fetchuser=> {
+            localStorage.setItem("user", JSON.stringify(fetchuser))
+            user = fetchuser
+            renderOrdens()
         })
     }
-
-
-
-
-
-
-/*     inicializaForm()
-    inicializaDatos() */
+}
+window.onload = ()=>{
+    renderApp()
 
 }

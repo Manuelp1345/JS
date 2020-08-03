@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="main.css">
 </head>
 <body>
+    <div id="app"></div>
+</body>
+<template id="login">
     <div class="contenedor-login">
         <p class="Form-title">Login</p>
         <form action="" id="login-form" class="login-form">
@@ -15,29 +18,28 @@
             <input id="pass" class="pass" type="password" placeholder="Contraseña" name="" id="">
             <input class="btnlogin" type="submit" value="Iniciar Seccion">
         </form>
-
     </div>
-    <template   id="orders-view">
-        <div class="contenedor">
-            <h1>Almuerzi</h1>
-            <div id="meals" class="meals">
-                <h2>Platillos</h2>
-                <ul id="meals-list">
-                    <p>Cargando...</p>
-                </ul>
-                <form id="order" action="">
-                    <input id="mealsid" type="hidden" name="">
-                    <input id="btn" class="btn" type="submit" disabled value="Enviar">
-                </form>
-            </div>
-            <div id="orders" class="orders">
-                <h2>Ordenes</h2>
-                <ul id="orders-list">
-                    <p>Cargando...</p>
-                </ul>
-            </div>
+</template>
+<template   id="orders-view">
+    <div class="contenedor">
+        <h1>Almuerzi</h1>
+        <div id="meals" class="meals">
+            <h2>Platillos</h2>
+            <ul id="meals-list">
+                <p>Cargando...</p>
+            </ul>
+            <form id="order" action="">
+                <input id="mealsid" type="hidden" name="">
+                <input id="btn" class="btn" type="submit" disabled value="Enviar">
+            </form>
         </div>
-    </template>
-</body>
+        <div id="orders" class="orders">
+            <h2>Ordenes</h2>
+            <ul id="orders-list">
+                <p>Cargando...</p>
+            </ul>
+        </div>
+    </div>
+</template>
 <script src="main.js"></script>
 </html>
