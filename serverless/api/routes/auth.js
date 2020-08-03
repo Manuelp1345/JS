@@ -1,7 +1,7 @@
 const express = require("express")
 const crypto = require("crypto")
 const jwt = require("jsonwebtoken")
-const user = require("../models/users")
+const users = require("../models/users")
 const {isAuthenticated} = require("../auth")
 
 const router = express.Router()
@@ -16,12 +16,12 @@ router.post("/register", (req,res) =>{
         const newSalt = salt.toString("base64")
         crypto.pbkdf2(password, newSalt, 10000, 64, "sha1", (err,key)=>{
             const encrytedPassword = key.toString("base64")
-            user.findOne({email}).exec()
+            users.findOne({email}).exec()
             .then(user => {
                 if(user){
                     return res.send("usuarios ya existe")
                 }
-                user.create({
+                users.create({
                     email,
                     password: encrytedPassword,
                     salt: newSalt
@@ -36,12 +36,12 @@ router.post("/register", (req,res) =>{
 
 router.post("/login", (req,res) =>{
     const {email, password} = req.body
-    user.findOne({email}).exec()
+    users.findOne({email}).exec()
     .then(user => {
         if(!user){
             return res.send("usuarios y/o contraseña incorrecto")
         }
-        crypto.pbkdf2(password, user.Salt, 10000, 64, "sha1", (err,key)=>{
+        crypto.pbkdf2(password, user.salt, 10000, 64, "sha1", (err,key)=>{
             const encrytedPassword = key.toString("base64")
             if(user.password === encrytedPassword){
                 const token = signtToken(user._id)
