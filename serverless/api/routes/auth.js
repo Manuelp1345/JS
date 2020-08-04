@@ -19,7 +19,7 @@ router.post("/register", (req,res) =>{
             users.findOne({email}).exec()
             .then(user => {
                 if(user){
-                    return res.send("usuarios ya existe")
+                    return res.send(false)
                 }
                 users.create({
                     email,
@@ -27,7 +27,7 @@ router.post("/register", (req,res) =>{
                     salt: newSalt
                 })
                 .then(()=> {
-                    res.send("usuarios creado con existo")
+                    res.send(true)
                 })
             })
         })

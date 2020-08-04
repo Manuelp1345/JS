@@ -10,13 +10,29 @@
 <body>
     <div id="app"></div>
 </body>
+<template id="register">
+    <div class="contenedor-login">
+        <p class="Form-title">Register</p>
+        <form action="" id="register-form" class="login-form">
+            <input  id="user" class="user" type="email" placeholder="Correo Electronico">
+            <input id="pass" class="pass" type="password" placeholder="Contraseña" name="" id="">
+            <div id="msg">
+            </div>
+            <input class="btnlogin" type="submit" value="Registrarse">
+            <p id="volver" class="btnlogin reg" >Iniciar Sesión</p>
+
+        </form>
+    </div>
+</template>
 <template id="login">
     <div class="contenedor-login">
         <p class="Form-title">Login</p>
         <form action="" id="login-form" class="login-form">
             <input  id="user" class="user" type="email" placeholder="Correo Electronico">
             <input id="pass" class="pass" type="password" placeholder="Contraseña" name="" id="">
-            <input class="btnlogin" type="submit" value="Iniciar Seccion">
+            <div id="msgr"></div>
+            <input class="btnlogin" type="submit" value="Iniciar Sesión">
+            <p id="reg" class="btnlogin reg" >Registrarse</p>
         </form>
     </div>
 </template>

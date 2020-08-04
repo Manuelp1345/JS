@@ -37,7 +37,7 @@ const inicializaForm = ()=>{
         }
     const ordenes = {
         meal_id: mealsIdValues,
-        user_id: user._id,
+        user_id: user.email,
     }
     fetch("https://almuerzi-grsqh0moh.vercel.app/api/orders",{
         method: 'POST',
@@ -83,6 +83,7 @@ const renderApp = () =>{
         return renderOrdens()
     }
     renderLogin()
+    renderregistro()
 }
 const renderOrdens = () =>{
     const ordersview = document.getElementById("orders-view")
@@ -96,7 +97,7 @@ const renderLogin= ()=>{
     const loginForm = document.getElementById("login-form")
     loginForm.onsubmit= (e)=>{
         e.preventDefault()
-        const userName = document.getElementById("user").value
+        const email = document.getElementById("user").value
         const password = document.getElementById("pass").value
         fetch("https://almuerzi.manuelp1345.vercel.app/api/auth/login",
             {
@@ -104,7 +105,7 @@ const renderLogin= ()=>{
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({userName, password})
+            body: JSON.stringify({email, password})
         }).then(x =>x.json())
         .then(respuesta => {
             localStorage.setItem("token", respuesta.token)
@@ -126,6 +127,39 @@ const renderLogin= ()=>{
             user = fetchuser
             renderOrdens()
         })
+    }
+}
+const renderregistro = ()=>{
+    
+    const registro = document.getElementById("reg")
+    registro.onclick = ()=>{
+        
+        const registerTemplate = document.getElementById("register")
+        document.getElementById("app").innerHTML = registerTemplate.innerHTML
+        const registerForm = document.getElementById("register-form")
+        const volver = document.getElementById("volver")
+        volver.onclick = ()=> renderLogin()
+        registerForm.onsubmit= (e)=>{
+            e.preventDefault()
+            const email = document.getElementById("user").value
+            const password = document.getElementById("pass").value
+            fetch("https://almuerzi.manuelp1345.vercel.app/api/auth/register",
+                {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({email, password})
+            })
+        .then(x =>x.json())
+        .then(respuesta => {
+            if(respuesta == true){
+                document.getElementById("msg").innerHTML= '<p class="exito">Usuario creado con existo</p>'
+                }else{
+                document.getElementById("msg").innerHTML= '<p class="error">El usuario ya existe</p>'
+                }
+            })
+        }
     }
 }
 window.onload = ()=>{
