@@ -53,7 +53,6 @@ router.post("/login", (req,res) =>{
     })
     
 })
-
 router.get("/me",isAuthenticated, (req,res)=>{
     res.send(req.user)
 })
