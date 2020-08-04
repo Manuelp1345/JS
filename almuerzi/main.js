@@ -130,10 +130,8 @@ const renderLogin= ()=>{
     }
 }
 const renderregistro = ()=>{
-    
     const registro = document.getElementById("reg")
     registro.onclick = ()=>{
-        
         const registerTemplate = document.getElementById("register")
         document.getElementById("app").innerHTML = registerTemplate.innerHTML
         const registerForm = document.getElementById("register-form")
@@ -143,6 +141,9 @@ const renderregistro = ()=>{
             e.preventDefault()
             const email = document.getElementById("user").value
             const password = document.getElementById("pass").value
+            if((email == "")||(password == "")){
+                document.getElementById("msg").innerHTML= '<p class="error">Ingrese un Correo y una Contraseña</p>'
+            }else{
             fetch("https://almuerzi.manuelp1345.vercel.app/api/auth/register",
                 {
                 method: 'POST',
@@ -151,18 +152,18 @@ const renderregistro = ()=>{
                 },
                 body: JSON.stringify({email, password})
             })
-        .then(x =>x.json())
-        .then(respuesta => {
-            if(respuesta == true){
-                document.getElementById("msg").innerHTML= '<p class="exito">Usuario creado con existo</p>'
-                }else{
-                document.getElementById("msg").innerHTML= '<p class="error">El usuario ya existe</p>'
-                }
-            })
+            .then(x =>x.json())
+            .then(respuesta => {
+                if(respuesta == true){
+                    document.getElementById("msg").innerHTML= '<p class="exito">Usuario creado con exito</p>'
+                    }else{
+                    document.getElementById("msg").innerHTML= '<p class="error">El usuario ya existe</p>'
+                    }
+                })
+            }
         }
     }
 }
 window.onload = ()=>{
     renderApp()
-
 }
