@@ -20,6 +20,7 @@ const renderItem = (item)=>{
 const rendersOrder= (order, meals) =>{
     const meal = meals.find(meal => meal._id === order.meal_id)
     const element = stringToHTML(`<li data-id="${order._id}">${meal.name} - ${order.user_id}</li>`)
+    renderexit()
     return element
 }
 const inicializaForm = ()=>{
@@ -99,6 +100,9 @@ const renderLogin= ()=>{
         e.preventDefault()
         const email = document.getElementById("user").value
         const password = document.getElementById("pass").value
+        if((email == "")||(password == "")){
+            document.getElementById("msgr").innerHTML= '<p class="error">Ingrese un Correo y una Contraseña</p>'
+        }else{
         fetch("https://almuerzi.manuelp1345.vercel.app/api/auth/login",
             {
             method: 'POST',
@@ -108,9 +112,13 @@ const renderLogin= ()=>{
             body: JSON.stringify({email, password})
         }).then(x =>x.json())
         .then(respuesta => {
+            if(!respuesta == false){
             localStorage.setItem("token", respuesta.token)
             ruta = "orders"
-            return respuesta.token
+            return respuesta.token}
+            else{
+                document.getElementById("msgr").innerHTML= '<p class="error">Usuario y/o Contraseña Incorrectos</p>'
+            }
         })
         .then(token=>{
             return fetch("https://almuerzi.manuelp1345.vercel.app/api/auth/me",{
@@ -126,7 +134,7 @@ const renderLogin= ()=>{
             localStorage.setItem("user", JSON.stringify(fetchuser))
             user = fetchuser
             renderOrdens()
-        })
+        })}
     }
 }
 const renderregistro = ()=>{
@@ -162,6 +170,14 @@ const renderregistro = ()=>{
                 })
             }
         }
+    }
+}
+const renderexit = ()=>{
+    const exit = document.getElementById("exit")
+    exit.onclick = ()=>{
+        localStorage.removeItem("token")
+        localStorage.removeItem("user")
+        renderApp()
     }
 }
 window.onload = ()=>{
